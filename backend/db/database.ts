@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 //defining mongo schemas
 const adminSchema = new mongoose.Schema({
@@ -21,12 +21,6 @@ const courseSchema = new mongoose.Schema({
 });
 
 //Defining mongoose model
-const Admin = mongoose.model("Admin", adminSchema);
-const User = mongoose.model("User", userSchema);
-const Course = mongoose.model('Course', courseSchema);
-
-module.exports = {
-    User,
-    Admin,
-    Course
-}
+export const Admin = mongoose.model("Admin", adminSchema);
+export const User = mongoose.model("User", userSchema);
+export const Course = mongoose.model('Course', courseSchema);

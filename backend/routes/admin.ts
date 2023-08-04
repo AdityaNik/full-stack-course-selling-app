@@ -1,13 +1,21 @@
-const mongoose = require("mongoose");
-const express = require('express');
-const { Admin, Course } = require('../db/database');
-const { adminGenerateJwt, ADMINAUTHENTICATIONJWT } = require("../middleware/adminAuth");
+import express from 'express';
+import mongoose from 'mongoose';
+import { Admin, Course } from '../db/database';
+import { adminGenerateJwt, ADMINAUTHENTICATIONJWT } from "../middleware/adminAuth";
 
 const router = express.Router();
 
+interface Course {
+    titile: String,
+    description: String,
+    price: Number,
+    imageLink: String,
+    published: Boolean
+}
+
 // Admin routes
 router.get('/me', ADMINAUTHENTICATIONJWT, async (req, res) => {
-    const admin = await Admin.findOne({ username: req.user.username });
+    const admin = await Admin.findOne({ username: req.headers["user"] });
     if (!admin) {
         res.status(403).json({ msg: "Admin doesnt exist" })
         return
@@ -34,7 +42,12 @@ router.post('/signup', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     // logic to log in admin
-    let { username, password } = req.headers;
+    const username = req.headers.username as string | undefined;
+    const password = req.headers.password as string | undefined;
+
+    if (!username || !password) {
+        return res.status(403).json({ message: "Invalid username or password" });
+    }
     let admin = await Admin.findOne({ username, password });
     if (admin) {
         let obj = { username: username, password: password };
@@ -47,7 +60,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/courses', ADMINAUTHENTICATIONJWT, (req, res) => {
     // logic to create a course
-    let course = req.body;
+    let course: Course = req.body;
     const newCourse = new Course(course);
     newCourse.save();
     res.status(200).json({ message: "Course created", id: newCourse.id });
@@ -106,4 +119,4 @@ router.delete('/courses/:courseId', ADMINAUTHENTICATIONJWT, async (req, res) => 
 });
 
 
-module.exports = router
+export default router;

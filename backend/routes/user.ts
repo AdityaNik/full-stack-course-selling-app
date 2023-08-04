@@ -1,13 +1,12 @@
-const mongoose = require("mongoose");
-const express = require('express');
-const { USERAUTHENTICATIONJWT, userGenerateJwt } = require('../middleware/userAuth');
-const { User, Course } = require('../db/database');
+import express from 'express';
+import { USERAUTHENTICATIONJWT, userGenerateJwt } from '../middleware/userAuth';
+import { User, Course } from '../db/database';
 
 const router = express.Router();
 
 // User routes
 router.get('/me', USERAUTHENTICATIONJWT, async (req, res) => {
-    const user = await User.findOne({ username: req.user.username });
+    const user = await User.findOne({ username: req.headers["user"] });
     if (!user) {
         res.status(403).json({ msg: "User doesnt exist" })
         return
@@ -34,7 +33,12 @@ router.post('/signup', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     // logic to log in user
-    let { username, password } = req.headers;
+    let username = req.headers.username as string | undefined;
+    let password = req.headers.password as string | undefined;
+
+    if (!username || !password) {
+        return res.status(403).json({ message: "Invalid username or password" });
+    }
     let user = await User.findOne({ username, password });
     if (user) {
         let obj = { username: username, password: password };
@@ -69,9 +73,9 @@ router.post('/courses/:courseId', USERAUTHENTICATIONJWT, async (req, res) => {
     let course = await Course.findById(req.params.courseId);
     // console.log(course);
     if (course) {
-        let user = await User.findOne({ username: req.user.username });
+        let user = await User.findOne({ username: req.headers["user"] });
         if (user) {
-            user.purchasedCourses.push(course);
+            user.purchasedCourses.push(course._id);
             await user.save();
             res.json({ message: "Course Purchases", course: course });
         } else {
@@ -84,7 +88,7 @@ router.post('/courses/:courseId', USERAUTHENTICATIONJWT, async (req, res) => {
 
 router.get('/purchasedCourses', USERAUTHENTICATIONJWT, async (req, res) => {
     // logic to view purchased courses
-    let user = await User.findOne({ username: req.user.username }).populate("purchasedCourses");
+    let user = await User.findOne({ username: req.headers["user"] }).populate("purchasedCourses");
     if (user) {
         res.json({ purchasedCourses: user.purchasedCourses });
     } else {
@@ -93,4 +97,4 @@ router.get('/purchasedCourses', USERAUTHENTICATIONJWT, async (req, res) => {
 });
 
 
-module.exports = router
+export default router;
