@@ -15,7 +15,7 @@ app.use('/users', userRouter);
 
 // Connect to MongoDB
 // DONT MISUSE THIS THANKYOU!!
-// Put yout MongoDB String here
+// Put your MongoDB String here
 // and provide a database name (create one named as "course_selling_application")
 mongoose.connect('', { dbName: "" });
 

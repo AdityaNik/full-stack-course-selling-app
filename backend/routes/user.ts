@@ -1,6 +1,7 @@
 import express from 'express';
 import { USERAUTHENTICATIONJWT, userGenerateJwt } from '../middleware/userAuth';
 import { User, Course } from '../db/database';
+import { UserType, passwordType, usernameType } from './admin';
 
 const router = express.Router();
 
@@ -18,8 +19,14 @@ router.get('/me', USERAUTHENTICATIONJWT, async (req, res) => {
 
 router.post('/signup', async (req, res) => {
     // logic to sign up user
-    let { username, password } = req.body;
-    let user = await User.findOne({ username, password });
+    const reqData = UserType.safeParse(req.body);
+    if (!reqData.success) {
+        res.status(411).json({ messege: "Send valid username" });
+        return;
+    }
+    let username = reqData.data.username;
+    let password = reqData.data.password;
+    let user = await User.findOne({ username: username, password: password });
     if (user) {
         res.status(403).json({ message: "User already exits" });
     } else {
@@ -33,15 +40,15 @@ router.post('/signup', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     // logic to log in user
-    let username = req.headers.username as string | undefined;
-    let password = req.headers.password as string | undefined;
+    const username = usernameType.safeParse(req.headers.username);
+    const password = passwordType.safeParse(req.headers.password);
 
-    if (!username || !password) {
+    if (!username.success || !password.success) {
         return res.status(403).json({ message: "Invalid username or password" });
     }
-    let user = await User.findOne({ username, password });
+    let user = await User.findOne({ username: username.data, password: password.data });
     if (user) {
-        let obj = { username: username, password: password };
+        let obj = { username: username.data, password: password.data };
         let jwtToken = userGenerateJwt(obj);
         res.status(200).json({ message: "Login successfull", token: jwtToken });
     } else {

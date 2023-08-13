@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const userAuth_1 = require("../middleware/userAuth");
 const database_1 = require("../db/database");
+const admin_1 = require("./admin");
 const router = express_1.default.Router();
 // User routes
 router.get('/me', userAuth_1.USERAUTHENTICATIONJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -29,8 +30,14 @@ router.get('/me', userAuth_1.USERAUTHENTICATIONJWT, (req, res) => __awaiter(void
 }));
 router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // logic to sign up user
-    let { username, password } = req.body;
-    let user = yield database_1.User.findOne({ username, password });
+    const reqData = admin_1.UserType.safeParse(req.body);
+    if (!reqData.success) {
+        res.status(411).json({ messege: "Send valid username" });
+        return;
+    }
+    let username = reqData.data.username;
+    let password = reqData.data.password;
+    let user = yield database_1.User.findOne({ username: username, password: password });
     if (user) {
         res.status(403).json({ message: "User already exits" });
     }
@@ -44,14 +51,14 @@ router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function*
 }));
 router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // logic to log in user
-    let username = req.headers.username;
-    let password = req.headers.password;
-    if (!username || !password) {
+    const username = admin_1.usernameType.safeParse(req.headers.username);
+    const password = admin_1.passwordType.safeParse(req.headers.password);
+    if (!username.success || !password.success) {
         return res.status(403).json({ message: "Invalid username or password" });
     }
-    let user = yield database_1.User.findOne({ username, password });
+    let user = yield database_1.User.findOne({ username: username.data, password: password.data });
     if (user) {
-        let obj = { username: username, password: password };
+        let obj = { username: username.data, password: password.data };
         let jwtToken = (0, userAuth_1.userGenerateJwt)(obj);
         res.status(200).json({ message: "Login successfull", token: jwtToken });
     }
