@@ -1,9 +1,9 @@
 # full-stack-course-selling-app
 
-TechStack: MERN
+TechStack: MERN </br>
 
-forntend: React + mui
-backend: express
-database: MongoDB
-state management: recoil
-backend validation: zod
+forntend: React + mui </br>
+backend: express </br>
+database: MongoDB </br>
+state management: recoil </br>
+backend validation: zod </br>
