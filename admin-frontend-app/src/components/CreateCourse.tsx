@@ -2,8 +2,6 @@ import React from "react";
 import { Card, Typography, TextField, Button, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-/// You need to add input boxes to take input for users to create a course.
-/// I've added one input so you understand the api to do it.
 function CreateCourse() {
     const [title, setTitle] = React.useState<string>("");
     const [description, setDescription] = React.useState<string>("");
@@ -11,8 +9,6 @@ function CreateCourse() {
     const [imageLink, setImageLink] = React.useState<string>("");
     const [published, setPublished] = React.useState<boolean>(true);
     const navigate = useNavigate();
-
-    // console.log(published);
 
     return <div>
         <div style={{ display: "flex", justifyContent: "center", paddingTop: 50 }}>

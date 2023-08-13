@@ -6,7 +6,6 @@ import { PurchasedCourse, purchasedCoursesState } from './stores/atoms/purchased
 import { BASE_URL } from "../config";
 import { useRecoilState } from "recoil";
 
-// type Course = Partial<PurchasedCourse>;
 const Course: PurchasedCourse = {
     title: "",
     description: "",

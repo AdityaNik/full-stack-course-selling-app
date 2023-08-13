@@ -7,8 +7,6 @@ import { userName } from "./stores/selector/userName";
 import { isLoading } from "./stores/selector/isLoading";
 import { userState } from "./stores/atoms/user";
 
-
-
 function AppBar() {
     const user = useRecoilValue(userName);
     const loding = useRecoilValue(isLoading);

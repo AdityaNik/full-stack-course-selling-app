@@ -7,7 +7,6 @@ import { TextField, Typography } from "@mui/material";
 import { userState } from "./stores/atoms/user";
 import { useSetRecoilState } from 'recoil';
 
-/// File is incomplete. You need to add input boxes to take input for users to register.
 function Register() {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");

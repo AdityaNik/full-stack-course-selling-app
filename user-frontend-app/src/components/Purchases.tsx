@@ -30,8 +30,6 @@ function Purchases() {
     }
 }
 
-
-
 function Course({ course }: CourseProps) {
 
     return <Card style={{

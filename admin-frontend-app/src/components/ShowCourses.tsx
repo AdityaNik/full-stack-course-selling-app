@@ -7,7 +7,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import { BASE_URL } from "../config";
 import { Course } from "./stores/atoms/course";
 
-
 function ShowCourses() {
     const [courses, setCourses] = useState<Course[]>([]);
 

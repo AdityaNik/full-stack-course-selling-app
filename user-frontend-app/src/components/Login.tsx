@@ -7,7 +7,6 @@ import { Alert, Snackbar, TextField, Typography } from "@mui/material";
 import { useSetRecoilState } from "recoil";
 import { userState } from "./stores/atoms/user";
 
-/// File is incomplete. You need to add input boxes to take input for users to login.
 function Login() {
     const [email, setEmail] = React.useState<string>("");
     const [password, setPassword] = React.useState<string>("");
