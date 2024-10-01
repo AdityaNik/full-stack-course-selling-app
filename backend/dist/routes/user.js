@@ -16,6 +16,7 @@ const express_1 = __importDefault(require("express"));
 const userAuth_1 = require("../middleware/userAuth");
 const database_1 = require("../db/database");
 const admin_1 = require("./admin");
+const mongoose_1 = __importDefault(require("mongoose"));
 const router = express_1.default.Router();
 // User routes
 router.get('/me', userAuth_1.USERAUTHENTICATIONJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -71,20 +72,28 @@ router.get('/courses', userAuth_1.USERAUTHENTICATIONJWT, (req, res) => __awaiter
     let courses = yield database_1.Course.find({ published: true });
     res.status(200).json({ courses: courses });
 }));
-router.get('/admin/courses/:courseId', userAuth_1.USERAUTHENTICATIONJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/courses/:courseId', userAuth_1.USERAUTHENTICATIONJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // login to get a course
     let courseId = req.params.courseId;
-    if (courseId) {
-        let course = yield database_1.Course.findById(courseId);
-        if (course) {
-            res.json({ course: course });
-        }
-        else {
-            res.status(404).json({ message: "Course not found" });
+    if (mongoose_1.default.isValidObjectId(courseId)) {
+        console.log("hello al");
+        if (courseId) {
+            let course = yield database_1.Course.findById(courseId);
+            if (course) {
+                res.json({ course: course });
+            }
+            else {
+                res.status(404).json({ message: "Course not found" });
+            }
         }
     }
+    else {
+        res.status(404).json({
+            "msg": "Invalid course id"
+        });
+    }
 }));
-router.post('/courses/:courseId', userAuth_1.USERAUTHENTICATIONJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/purchaseCourse/:courseId', userAuth_1.USERAUTHENTICATIONJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // logic to purchase a course
     let course = yield database_1.Course.findById(req.params.courseId);
     // console.log(course);
