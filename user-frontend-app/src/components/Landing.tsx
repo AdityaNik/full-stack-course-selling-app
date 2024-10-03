@@ -1,14 +1,49 @@
-import { Grid, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { userName } from "./stores/selector/user";
 import { isLoading } from "./stores/selector/isLoaing";
 import { Button } from "./ui/button";
+import { Card, CardTitle } from "./ui/card";
+import { CardContent, CardHeader } from "@mui/material";
 
 function Landing() {
   const navigate = useNavigate();
   const user = useRecoilValue(userName);
   const loading = useRecoilValue(isLoading);
+
+  const benifits = [
+    {
+      title: "You don’t have to relocate or commute.",
+      discription:
+        "With online learning, the classroom comes to you. No matter what type of credential you’re interested in achieving—degree, professional certificate, qualification—you can access some of the most renowned educational institutions or industry leaders online.",
+    },
+    {
+      title: "You can decide your learning space.",
+      discription:
+        "Whether you’re learning synchronously or asynchronously online, you don’t have to worry about the hurdles of getting to class. All you have to do is turn on your computer",
+    },
+    {
+      title: "You can keep working while enrolled.",
+      discription:
+        "A lot of students work part-time or full-time while attending college or completing other programs designed to enhance their education or skill set. But the rigid scheduling of many in-person programs can make it hard to balance your professional obligations with your educational ones. ",
+    },
+    {
+      title:
+        "You can learn from top universities or industry-leading companies.",
+      discription:
+        "Many prestigious colleges and universities now offer online degree options. An online degree from a major institution typically has the same value as one you earned in person and may even expose you to more rigorous coursework or skills development.",
+    },
+    {
+      title: "You might save money compared to in-person learning.",
+      discription:
+        "Beyond tuition and fees, there are a lot of costs associated with attending college or university—or a workshop, course, or certificate program—in person",
+    },
+    {
+      title: "You can engage with a global peer network.",
+      discription:
+        "Diversity yields greater perspectives and insights. Thanks to the global availability of online learning, you may find yourself enrolled alongside students from around the world, which may in turn foster broader, more diverse opinions and learning.",
+    },
+  ];
 
   return (
     <div>
@@ -31,60 +66,55 @@ function Landing() {
         </h4>
       </div>
       <div className="flex justify-center mt-8">
-        <Button size={"lg"} className=" bg-orange-600">
+        <Button
+          size={"lg"}
+          className=" bg-orange-600 hover:bg-orange-800"
+          onClick={() => {
+            navigate("/courses");
+          }}
+        >
           Explore Courses
         </Button>
       </div>
-      <Grid container style={{ padding: "5vw" }}>
-        <Grid item lg={6} md={12} sm={12}>
-          <div style={{ marginTop: 100 }}>
-            <div>
-              <Typography variant="h2">Welcome to Coursera</Typography>
-            </div>
-            <div>
-              <Typography variant="h5">
-                Unlock Your Potential, Empower Yourself with us!
-              </Typography>
-            </div>
-            {!user && !loading && (
-              <div style={{ display: "flex", marginTop: 20 }}>
-                <div style={{ marginRight: 10 }}>
-                  <Button
-                    size={"lg"}
-                    onClick={() => {
-                      navigate("/register");
-                    }}
-                  >
-                    SignUp
-                  </Button>
-                </div>
-                <div>
-                  <Button
-                    size={"lg"}
-                    onClick={() => {
-                      navigate("/login");
-                    }}
-                  >
-                    SignIn
-                  </Button>
-                </div>
-              </div>
-            )}
-            <div></div>
+      <div className="flex justify-center mt-14">
+        <img className="rounded-xl" width={600} src={"/mainLogo.jpeg"}></img>
+      </div>
+      <div>
+        <div className="mx-32">
+          <div>
+            <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+              Benifits
+            </h2>
           </div>
-        </Grid>
-        <Grid item lg={6} md={12} sm={12}>
-          <div
-            style={{
-              paddingTop: 100,
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <img src={"/mainLogo.jpeg"}></img>
+          <div>
+            <p className="leading-7 [&:not(:first-child)]:mt-6">
+              Online learning is expanding the reach of education and empowering
+              more people than ever before to work toward their personal goals.
+              Let’s go over some of the major benefits of online learning.
+            </p>
           </div>
-        </Grid>
-      </Grid>
+          <div className="flex flex-wrap gap-4 my-8">
+            {benifits.map((benifit) => {
+              return (
+                <Card className="w-[350px] border-orange-200">
+                  <CardContent>
+                    <div className="m-2">
+                      <div className="mb-4">
+                        <CardTitle>
+                          <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                            {benifit.title}
+                          </h4>
+                        </CardTitle>
+                      </div>
+                      <div>{benifit.discription}</div>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
