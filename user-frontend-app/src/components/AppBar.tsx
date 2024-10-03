@@ -1,12 +1,10 @@
 import { Avatar, CardContent, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { deepPurple } from "@mui/material/colors";
-import Box from "@mui/material/Box";
+import { deepPurple, orange } from "@mui/material/colors";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { userName } from "./stores/selector/user";
 import { isLoading } from "./stores/selector/isLoaing";
 import { userState } from "./stores/atoms/user";
-import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 
 function AppBar() {
@@ -32,7 +30,7 @@ function AppBar() {
                 navigate("/");
               }}
             >
-              <h2 className="text-3xl font-semibold tracking-tight first:mt-0">
+              <h2 className="text-3xl font-semibold tracking-tight first:mt-0 text-orange-600">
                 Coursera
               </h2>
             </div>
@@ -69,6 +67,7 @@ function AppBar() {
           <div className="flex gap-4">
             <Avatar sx={{ bgcolor: deepPurple[500] }}></Avatar>
             <Button
+              className="bg-orange-600 hover:bg-orange-800"
               onClick={() => {
                 localStorage.setItem("token", "");
                 setUser({
@@ -87,13 +86,18 @@ function AppBar() {
   } else {
     return (
       <div className="flex justify-between p-4 border-b-2 shadow-sm">
-        <div>
-          <h2 className="text-3xl font-semibold tracking-tight first:mt-0">
+        <div
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          <h2 className="text-3xl font-semibold tracking-tight first:mt-0 text-orange-600">
             Coursera
           </h2>
         </div>
         <div className="flex gap-4">
           <Button
+            className="bg-orange-600 hover:bg-orange-800"
             onClick={() => {
               navigate("/register");
             }}
@@ -101,6 +105,7 @@ function AppBar() {
             SignUp
           </Button>
           <Button
+            className="bg-orange-600 hover:bg-orange-800"
             onClick={() => {
               navigate("/login");
             }}
