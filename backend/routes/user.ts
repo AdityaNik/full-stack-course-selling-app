@@ -2,6 +2,7 @@ import express from 'express';
 import { USERAUTHENTICATIONJWT, userGenerateJwt } from '../middleware/userAuth';
 import { User, Course } from '../db/database';
 import { UserType, passwordType, usernameType } from './admin';
+import mongoose from 'mongoose';
 
 const router = express.Router();
 
@@ -62,20 +63,27 @@ router.get('/courses', USERAUTHENTICATIONJWT, async (req, res) => {
     res.status(200).json({ courses: courses });
 });
 
-router.get('/admin/courses/:courseId', USERAUTHENTICATIONJWT, async (req, res) => {
+router.get('/courses/:courseId', USERAUTHENTICATIONJWT, async (req, res) => {
     // login to get a course
     let courseId = req.params.courseId;
-    if (courseId) {
-        let course = await Course.findById(courseId);
-        if (course) {
-            res.json({ course: course });
-        } else {
-            res.status(404).json({ message: "Course not found" });
+    if(mongoose.isValidObjectId(courseId)){
+        console.log("hello al");
+        if (courseId) {
+            let course = await Course.findById(courseId);
+            if (course) {
+                res.json({ course: course });
+            } else {
+                res.status(404).json({ message: "Course not found" });
+            }
         }
+    }else{
+        res.status(404).json({
+            "msg": "Invalid course id"
+        })
     }
 });
 
-router.post('/courses/:courseId', USERAUTHENTICATIONJWT, async (req, res) => {
+router.post('/purchaseCourse/:courseId', USERAUTHENTICATIONJWT, async (req, res) => {
     // logic to purchase a course
     let course = await Course.findById(req.params.courseId);
     // console.log(course);

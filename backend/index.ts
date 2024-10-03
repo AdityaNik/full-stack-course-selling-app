@@ -17,9 +17,9 @@ app.use('/users', userRouter);
 // DONT MISUSE THIS THANKYOU!!
 // Put your MongoDB String here
 // and provide a database name (create one named as "course_selling_application")
-mongoose.connect('mongodb+srv://aadityanikam2004:I3LVVCBiEazcfHd5@cluster0.00dztjl.mongodb.net/', { dbName: "course_selling_application" });
+mongoose.connect('mongodb+srv://adityanikam481:YQb7ocD461hqbMUt@cluster0.6clgv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', { dbName: "course_selling_application" });
 
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+  console.log(`Example app listening on port ${port}`)
 })

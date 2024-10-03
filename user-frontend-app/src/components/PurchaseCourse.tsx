@@ -33,11 +33,14 @@ function PurchaseCourse() {
                 }
             });
             if (response.data.course) {
+                console.log(response.data.course);
+                
                 setCourse(response.data.course);
             } else {
                 setCourse(Course);
             }
         } catch (e) {
+            console.log(e);
             setCourse(Course);
         }
     }
@@ -47,7 +50,7 @@ function PurchaseCourse() {
     }, []);
 
     const onPress = async () => {
-        const response = await axios.post(`${BASE_URL}/users/course/${courseId}`, {}, {
+        const response = await axios.post(`${BASE_URL}/users/purchaseCourse/${courseId}`, {}, {
             headers: {
                 "Authorization": localStorage.getItem("token")
             }
@@ -93,9 +96,10 @@ function PurchaseCourse() {
                                 </div>
                                 <TextField
                                     fullWidth={true}
+                                    aria-readonly
                                     id="filled-read-only-input"
                                     label="title"
-                                    defaultValue={course.title}
+                                    value={course.title}
                                     InputProps={{
                                         readOnly: true,
                                     }}
@@ -106,7 +110,7 @@ function PurchaseCourse() {
                                     fullWidth={true}
                                     id="filled-read-only-input"
                                     label="Description"
-                                    defaultValue={course.description}
+                                    value={course.description}
                                     InputProps={{
                                         readOnly: true,
                                     }}
