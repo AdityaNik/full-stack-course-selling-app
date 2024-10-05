@@ -20,7 +20,8 @@ const courseSchema = new mongoose_1.default.Schema({
     description: String,
     price: Number,
     imageLink: String,
-    published: Boolean
+    published: Boolean,
+    chapters: [{ title: String, lectures: [], }]
 });
 //Defining mongoose model
 exports.Admin = mongoose_1.default.model("Admin", adminSchema);

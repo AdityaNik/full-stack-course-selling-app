@@ -106,6 +106,67 @@ router.put('/courses/:courseId', adminAuth_1.ADMINAUTHENTICATIONJWT, (req, res) 
         res.status(404).json({ message: "Invalid course Id" });
     }
 }));
+router.post('/addChapter/:courseId', adminAuth_1.ADMINAUTHENTICATIONJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let checkObj = mongoose_1.default.isValidObjectId(req.params.courseId);
+    if (checkObj) {
+        const course = yield database_1.Course.findById(req.params.courseId);
+        if (course) {
+            const id = new mongoose_1.default.Types.ObjectId;
+            yield database_1.Course.updateOne({ _id: req.params.courseId }, {
+                $push: {
+                    chapters: { title: req.body.chapterTitle, _id: id }
+                }
+            });
+            const updateCourse = yield database_1.Course.findById(req.params.courseId);
+            res.status(200).json({ chapter_id: id });
+        }
+        else {
+            res.status(404).json({ message: 'Course not found' });
+        }
+    }
+    else {
+        res.status(404).json({ message: "Invalid course Id" });
+    }
+}));
+router.post('/addLeture/:courseId', adminAuth_1.ADMINAUTHENTICATIONJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let checkObj = mongoose_1.default.isValidObjectId(req.params.courseId);
+    if (checkObj) {
+        const course = yield database_1.Course.findById(req.params.courseId);
+        if (!course) {
+            return res.status(404).json({ message: "Course not found" });
+        }
+        const { chapterId, lectureTitle } = req.body;
+        const chapter = course.chapters.id(chapterId);
+        if (!chapter) {
+            return res.status(404).json({ message: "Chapter not found" });
+        }
+        const newLession = {
+            _id: new mongoose_1.default.Types.ObjectId,
+            lectureTitle,
+        };
+        chapter.lectures.push(newLession);
+        yield course.save();
+        res.status(200).json({
+            "Chapter": newLession
+        });
+    }
+}));
+router.get('/getChapter/:courseId', adminAuth_1.ADMINAUTHENTICATIONJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let checkObj = mongoose_1.default.isValidObjectId(req.params.courseId);
+    if (checkObj) {
+        const course = yield database_1.Course.findById(req.params.courseId);
+        if (course) {
+            const courseChapter = yield database_1.Course.findOne({ _id: req.params.courseId }).populate("chapters");
+            res.status(200).json({ chapters: courseChapter === null || courseChapter === void 0 ? void 0 : courseChapter.chapters });
+        }
+        else {
+            res.status(404).json({ message: 'Course not found' });
+        }
+    }
+    else {
+        res.status(404).json({ message: "Invalid course Id" });
+    }
+}));
 router.get('/courses', adminAuth_1.ADMINAUTHENTICATIONJWT, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // logic to get all courses
     let courses = yield database_1.Course.find();

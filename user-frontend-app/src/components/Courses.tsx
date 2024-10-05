@@ -71,7 +71,7 @@ function Course({ course }: CourseProps) {
       <Card>
         <CardContent>
           <CardTitle>
-            <div>
+            <div className="mt-2">
               <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
                 {course.title}
               </h3>
@@ -85,7 +85,7 @@ function Course({ course }: CourseProps) {
           <div className=" w-[350px] h-[350px">
             <img className="w-[350px] h-[350px]" src={course.imageLink}></img>
           </div>
-          <div>
+          <div className="flex justify-between my-4">
             <Button
               className="bg-orange-600 hover:bg-orange-800"
               size={"lg"}
@@ -95,6 +95,7 @@ function Course({ course }: CourseProps) {
             >
               Explore
             </Button>
+            <div>by Jon Doe</div>
           </div>
         </CardContent>
       </Card>

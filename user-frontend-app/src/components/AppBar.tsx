@@ -1,6 +1,6 @@
-import { Avatar, CardContent, Typography } from "@mui/material";
+import { Avatar, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { deepPurple, orange } from "@mui/material/colors";
+import { deepPurple } from "@mui/material/colors";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { userName } from "./stores/selector/user";
 import { isLoading } from "./stores/selector/isLoaing";

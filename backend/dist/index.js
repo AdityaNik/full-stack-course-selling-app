@@ -14,11 +14,6 @@ app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use('/admin', admin_js_1.default);
 app.use('/users', user_js_1.default);
-app.get('/', (req, res) => {
-    res.json({
-        "msg": "Hello from backend"
-    });
-});
 // Connect to MongoDB
 // DONT MISUSE THIS THANKYOU!!
 // Put your MongoDB String here

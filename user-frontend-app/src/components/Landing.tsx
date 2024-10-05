@@ -3,8 +3,7 @@ import { useRecoilValue } from "recoil";
 import { userName } from "./stores/selector/user";
 import { isLoading } from "./stores/selector/isLoaing";
 import { Button } from "./ui/button";
-import { Card, CardTitle } from "./ui/card";
-import { CardContent, CardHeader } from "@mui/material";
+import { Card, CardTitle, CardContent } from "./ui/card";
 
 function Landing() {
   const navigate = useNavigate();
@@ -93,7 +92,7 @@ function Landing() {
               Let’s go over some of the major benefits of online learning.
             </p>
           </div>
-          <div className="flex flex-wrap gap-4 my-8">
+          <div className="flex flex-wrap gap-4 my-8 justify-center">
             {benifits.map((benifit) => {
               return (
                 <Card className="w-[350px] border-orange-200">
