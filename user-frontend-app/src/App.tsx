@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { BASE_URL } from "./config.js";
 import axios from "axios";
 import Footer from "./components/Footer.js";
+import CourseContent from "./components/CourseContent.js";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/courses" element={<Courses />} />
           <Route path="/purchases" element={<Purchases />} />
           <Route path="/course/:courseId" element={<PurchaseCourse />} />
+          <Route path="/courseContent/:courseId" element={<CourseContent />} />
         </Routes>
         <Footer></Footer>
       </Router>
