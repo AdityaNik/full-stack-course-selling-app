@@ -14,23 +14,42 @@ import { BASE_URL } from "./config.js";
 import axios from "axios";
 import Footer from "./components/Footer.js";
 import CourseContent from "./components/CourseContent.js";
+import Lectures from "./components/Lectures.js";
+import VideoScreen from "./components/VideoScreen.js";
 
 function App() {
   return (
     <RecoilRoot>
       <Router>
-        <AppBar></AppBar>
-        <InitUser></InitUser>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/Register" element={<Register />} />
-          <Route path="/courses" element={<Courses />} />
-          <Route path="/purchases" element={<Purchases />} />
-          <Route path="/course/:courseId" element={<PurchaseCourse />} />
-          <Route path="/courseContent/:courseId" element={<CourseContent />} />
-        </Routes>
-        <Footer></Footer>
+        <RecoilRoot>
+          <div className="flex flex-col min-h-screen">
+            <AppBar />
+            <main className="flex-grow">
+              <InitUser />
+              <Routes>
+                <Route path="/" element={<Landing />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/courses" element={<Courses />} />
+                <Route path="/purchases" element={<Purchases />} />
+                <Route path="/course/:courseId" element={<PurchaseCourse />} />
+                <Route
+                  path="/courseContent/:courseId"
+                  element={<CourseContent />}
+                />
+                <Route
+                  path="/lectures/:courseId/:chapterId"
+                  element={<Lectures />}
+                />
+                <Route
+                  path="/lecture/:courseId/:chapterId/:lectureId/:lectureTitle"
+                  element={<VideoScreen />}
+                />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        </RecoilRoot>
       </Router>
     </RecoilRoot>
   );

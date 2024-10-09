@@ -42,7 +42,7 @@ function Courses() {
               Courses
             </h2>
           </div>
-          <div className="flex flex-col m-10 gap-6 justify-center">
+          <div className="flex flex-row m-10 gap-10 justify-center">
             {courses.map((course) => {
               return (
                 <div>
@@ -66,8 +66,7 @@ function Course({ course }: CourseProps) {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <CardContent></CardContent>
+    <div className="flex">
       <Card>
         <CardContent>
           <CardTitle>

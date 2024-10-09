@@ -31,7 +31,7 @@ function AppBar() {
               }}
             >
               <h2 className="text-3xl font-semibold tracking-tight first:mt-0 text-orange-600">
-                Coursera
+                CourseMenia
               </h2>
             </div>
             <div className="flex">

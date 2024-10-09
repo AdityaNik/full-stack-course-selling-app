@@ -18,7 +18,7 @@ const Footer = () => {
             <div>
               <div>
                 <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight text-orange-600 first:mt-0">
-                  Coursera
+                  CourseMenia
                 </h2>
               </div>
               <div className="flex flex-col gap-y-2">

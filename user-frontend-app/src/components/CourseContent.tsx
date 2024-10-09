@@ -1,13 +1,13 @@
 import { BASE_URL } from "@/config";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Card, CardContent } from "./ui/card";
-import ReactPlayer from "react-player";
 
 const CourseContent = () => {
   const [course, setCourse] = useState({});
   const { courseId } = useParams();
+  const navigate = useNavigate();
 
   const init = async () => {
     try {
@@ -40,7 +40,12 @@ const CourseContent = () => {
     <div className="flex flex-wrap justify-center m-10 gap-8">
       {course?.chapters && course?.chapters.length > 0 ? (
         course?.chapters.map((chapter) => (
-          <div>
+          <div
+            className="cursor-pointer"
+            onClick={() => {
+              navigate(`/lectures/${courseId}/${chapter._id}`);
+            }}
+          >
             <Card className="w-[350px] h-[200px]">
               <CardContent>
                 <img

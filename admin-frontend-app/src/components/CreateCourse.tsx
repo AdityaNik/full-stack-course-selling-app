@@ -82,6 +82,7 @@ function CreateCourse() {
               variant="outlined"
               type="number"
               onChange={(e) => {
+                console.log(price);
                 setPrice(parseInt(e.target.value));
               }}
             />
@@ -121,7 +122,6 @@ function CreateCourse() {
                     {
                       headers: {
                         Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
                       },
                     }
                   )

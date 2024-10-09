@@ -145,7 +145,11 @@ function PurchaseCourse() {
           </div>
           {!check() ? (
             <div className="flex justify-end mr-12">
-              <Button className="bg-orange-600 hover:bg-orange-800" size={"lg"}>
+              <Button
+                className="bg-orange-600 hover:bg-orange-800"
+                size={"lg"}
+                onClick={onPress}
+              >
                 Purchase
               </Button>
             </div>
