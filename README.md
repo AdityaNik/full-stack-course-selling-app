@@ -2,7 +2,7 @@
 
 TechStack: MERN </br>
 
-forntend: React + mui </br>
+forntend: React + MUI </br>
 backend: express </br>
 database: MongoDB </br>
 state management: recoil </br>
