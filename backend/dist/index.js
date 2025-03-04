@@ -8,10 +8,12 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
 const admin_js_1 = __importDefault(require("./routes/admin.js"));
 const user_js_1 = __importDefault(require("./routes/user.js"));
+const body_parser_1 = __importDefault(require("body-parser"));
 const port = 3000;
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
+app.use((0, body_parser_1.default)());
 app.use('/admin', admin_js_1.default);
 app.use('/users', user_js_1.default);
 // Connect to MongoDB

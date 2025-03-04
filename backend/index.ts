@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import adminRouter from "./routes/admin.js";
 import userRouter from "./routes/user.js";
+import bodyParser from 'body-parser';
 
 const port = 3000
 const app = express()
