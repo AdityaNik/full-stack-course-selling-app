@@ -29,6 +29,7 @@ function ShowCourses() {
         },
       });
       if (response.data.courses) {
+        console.log(response.data.courses)
         setCourses(response.data.courses);
       }
     } catch (err) {}
@@ -129,7 +130,16 @@ function CourseComponent({ course, setCourses }: CoursePropType) {
         >
           Explore Content
         </Button>
-
+        <Button
+          variant="contained"
+          onClick = {() => {
+            handleClickOpen()
+          }}
+        >
+          Delete
+        </Button>
+        <div>
+          
         <Dialog open={open} onClose={handleClose} fullWidth={true}>
           <DialogTitle>Subscribe</DialogTitle>
           <DialogContent>
@@ -178,6 +188,7 @@ function CourseComponent({ course, setCourses }: CoursePropType) {
             </Button>
           </DialogActions>
         </Dialog>
+        </div>
       </div>
     </Card>
   );

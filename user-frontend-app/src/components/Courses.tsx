@@ -37,16 +37,26 @@ function Courses() {
     return (
       <div>
         <div>
-          <div className="flex justify-center m-4">
-            <h2 className="text-3xl font-semibold tracking-tight first:mt-0">
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Typography variant="h3" style={{ marginTop: 30 }}>
               Courses
-            </h2>
+            </Typography>
           </div>
-          <div className="flex flex-row m-10 gap-10 justify-center">
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              marginTop: 10,
+            }}
+          >
             {courses.map((course) => {
               return (
                 <div>
-                  <Course key={course._id} course={course} />
+                  <Course
+                    key={course._id}
+                    course={course}
+                  />
                 </div>
               );
             })}
@@ -81,9 +91,9 @@ function Course({ course }: CourseProps) {
               {course.description}
             </p>
           </div>
-          <div className=" w-[350px] h-[350px">
-            <img className="w-[350px] h-[350px]" src={course.imageLink}></img>
-          </div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+        <img src={course.imageLink} style={{ width: 300 }}></img>
+      </div>
           <div className="flex justify-between my-4">
             <Button
               className="bg-orange-600 hover:bg-orange-800"
